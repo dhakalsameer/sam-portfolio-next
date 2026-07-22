@@ -1,0 +1,83 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(cuid())
+  email    String @unique
+  password String
+  name     String
+}
+
+model Profile {
+  id        String @id @default(cuid())
+  fullName  String
+  title     String
+  bio       String
+  about     String
+  email     String
+  resume    String?
+  linkedin  String?
+  github    String?
+  facebook  String?
+  updatedAt DateTime @updatedAt
+  photos    ProfilePhoto[]
+  roles     Role[]
+}
+
+model ProfilePhoto {
+  id        String @id @default(cuid())
+  image     String
+  order     Int
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model Role {
+  id        String @id @default(cuid())
+  title     String
+  profileId String
+  profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
+}
+
+model Skill {
+  id   String @id @default(cuid())
+  name String
+  icon String?
+}
+
+model Project {
+  id          String @id @default(cuid())
+  title       String
+  description String
+  techStack   String
+  githubLink  String?
+  liveLink    String?
+  image       String?
+  createdAt   DateTime @default(now())
+}
+
+model Certification {
+  id             String @id @default(cuid())
+  title          String
+  description    String
+  issuer         String
+  dateAwarded    String?
+  certificateUrl String?
+  image          String?
+  createdAt      DateTime @default(now())
+}
+
+model ContactMessage {
+  id        String @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime @default(now())
+}
