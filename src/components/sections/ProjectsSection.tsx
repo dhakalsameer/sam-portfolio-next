@@ -91,7 +91,7 @@ export default function ProjectsSection({ projects }: { projects: ProjectData[] 
                 >
                   <div className="flex items-start gap-3 sm:gap-6 sm:items-start">
                     {project.image && (
-                      <div className="w-20 h-16 sm:w-56 sm:h-36 shrink-0 rounded-lg overflow-hidden border border-terminal-border/60 bg-white/[0.04] shadow-sm shadow-black/10 group-hover:shadow-terminal-green/10 group-hover:border-terminal-green/40 transition-all duration-500">
+                      <div className="w-12 h-10 sm:w-56 sm:h-36 shrink-0 rounded sm:rounded-lg overflow-hidden border border-terminal-border/60 bg-white/[0.04] shadow-sm shadow-black/10 group-hover:shadow-terminal-green/10 group-hover:border-terminal-green/40 transition-all duration-500">
                         <img
                           src={cl(project.image, 400)}
                           alt={project.title}
