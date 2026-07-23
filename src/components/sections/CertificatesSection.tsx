@@ -55,7 +55,7 @@ export default function CertificatesSection({ certificates }: { certificates: Ce
 
                   <div className="flex items-start gap-2.5 sm:gap-5">
                     {cert.image && (
-                      <div className="w-16 h-16 sm:w-28 sm:h-28 shrink-0 rounded-lg sm:rounded-xl overflow-hidden border border-terminal-border/60 bg-white/[0.04] shadow-sm shadow-black/10 group-hover:shadow-terminal-orange/10 group-hover:border-terminal-orange/40 transition-all duration-500 cursor-pointer" onClick={() => setLightbox(cert.image)}>
+                      <div className="w-20 h-20 sm:w-28 sm:h-28 shrink-0 rounded-lg sm:rounded-xl overflow-hidden border border-terminal-border/60 bg-white/[0.04] shadow-sm shadow-black/10 group-hover:shadow-terminal-orange/10 group-hover:border-terminal-orange/40 transition-all duration-500 cursor-pointer" onClick={() => setLightbox(cert.image)}>
                         <img src={cl(cert.image, 300)} alt={cert.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
                       </div>
                     )}
