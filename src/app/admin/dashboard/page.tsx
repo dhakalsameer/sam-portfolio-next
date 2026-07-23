@@ -12,10 +12,12 @@ export default function DashboardPage() {
   useEffect(() => {
     Promise.all([
       authenticatedFetch("/api/skills").then(r => r.json()),
-      authenticatedFetch("/api/certificates").then(r => r.json()),
-      authenticatedFetch("/api/projects").then(r => r.json()),
+      authenticatedFetch("/api/certificates?limit=50").then(r => r.json()),
+      authenticatedFetch("/api/projects?limit=50").then(r => r.json()),
       authenticatedFetch("/api/profile").then(r => r.json()),
-    ]).then(([skills, certs, projects, profile]) => {
+    ]).then(([skills, certsRes, projectsRes, profile]) => {
+      const certs = certsRes.certificates ?? certsRes
+      const projects = projectsRes.projects ?? projectsRes
       setStats({ skills: skills.length, certificates: certs.length, projects: projects.length, hasProfile: !!profile })
     }).catch(() => setError("Failed to load stats"))
   }, [])

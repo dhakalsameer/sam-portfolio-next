@@ -76,11 +76,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           ))}
         </nav>
         <div className="p-3 border-t border-terminal-border space-y-1">
-          <button onClick={() => { clearToken(); router.push("/admin/login") }} className="flex items-center gap-2 px-3 py-2 w-full rounded text-terminal-red hover:bg-terminal-border transition-colors text-sm">
+          <button onClick={() => { clearToken(); router.push("/admin/login") }} className="flex items-center gap-2 px-3 py-2 w-full rounded text-terminal-red hover:text-terminal-red-dim hover:bg-terminal-red/5 transition-colors text-sm">
             <LogOut size={16} /> Logout
           </button>
-          <button onClick={() => { const next = theme === "dark" ? "light" : "dark"; setTheme(next); setThemeState(next) }} className="flex items-center gap-2 px-3 py-2 w-full rounded text-terminal-text-dim hover:text-terminal-amber hover:bg-terminal-border transition-colors text-sm">
-            {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />} {theme === "dark" ? "Light" : "Dark"} Mode
+          <button onClick={() => { const next = theme === "dark" ? "light" : "dark"; setTheme(next); setThemeState(next) }} className="flex items-center justify-between gap-2 px-3 py-2 w-full rounded text-terminal-text-dim hover:text-terminal-amber hover:bg-terminal-amber/5 border border-transparent hover:border-terminal-amber/30 transition-all duration-300 text-sm group">
+            <span className="flex items-center gap-2"><span className={`p-1 rounded-md transition-transform duration-300 ${theme === "dark" ? "bg-terminal-amber/10 rotate-0" : "bg-terminal-blue/10 rotate-180"}`}>{theme === "dark" ? <Sun size={14} className="text-terminal-amber" /> : <Moon size={14} className="text-terminal-blue" />}</span> {theme === "dark" ? "Light" : "Dark"} Mode</span>
+            <span className="text-xs opacity-0 group-hover:opacity-60 transition-opacity">{theme === "dark" ? "☀️" : "🌙"}</span>
           </button>
         </div>
       </aside>
@@ -97,8 +98,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <button onClick={() => { clearToken(); router.push("/admin/login") }} className="p-2 text-terminal-text-dim hover:text-terminal-red transition-colors" title="Logout">
               <LogOut size={18} />
             </button>
-            <button onClick={() => { const next = theme === "dark" ? "light" : "dark"; setTheme(next); setThemeState(next) }} className="p-2 text-terminal-text-dim hover:text-terminal-amber transition-colors" title={theme === "dark" ? "Light mode" : "Dark mode"}>
-              {theme === "dark" ? <Sun size={20} /> : <Moon size={20} />}
+            <button onClick={() => { const next = theme === "dark" ? "light" : "dark"; setTheme(next); setThemeState(next) }} className={`p-2 rounded-lg border transition-all duration-300 ${theme === "dark" ? "border-terminal-amber/20 text-terminal-amber hover:bg-terminal-amber/5 hover:border-terminal-amber/40" : "border-terminal-blue/20 text-terminal-blue hover:bg-terminal-blue/5 hover:border-terminal-blue/40"}`} title={theme === "dark" ? "Light mode" : "Dark mode"}>
+              <span className={`block transition-transform duration-300 ${theme === "dark" ? "rotate-0" : "rotate-180"}`}>{theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}</span>
             </button>
           </div>
         </header>

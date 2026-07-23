@@ -15,7 +15,7 @@ export function clearToken() {
 
 export function authHeaders(): Record<string, string> {
   const token = getToken()
-  return token ? { Authorization: `Bearer ${token}`, "Content-Type": "application/json" } : { "Content-Type": "application/json" }
+  return token ? { Authorization: `Bearer ${token}` } : {}
 }
 
 export async function login(email: string, password: string): Promise<{ success: boolean; error?: string }> {
@@ -53,11 +53,12 @@ export async function verifySession(): Promise<boolean> {
 }
 
 export function authenticatedFetch(url: string, options: RequestInit = {}): Promise<Response> {
+  const headers: Record<string, string> = { ...options.headers as Record<string, string> | undefined, ...authHeaders() }
+  if (!(options.body instanceof FormData)) {
+    headers["Content-Type"] = "application/json"
+  }
   return fetch(url, {
     ...options,
-    headers: {
-      ...options.headers,
-      ...authHeaders(),
-    },
+    headers,
   })
 }

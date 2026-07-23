@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Plus, Pencil, Trash2, X, Check, ExternalLink, Download } from "lucide-react"
+import { Plus, Pencil, Trash2, X, Check, ExternalLink, Download, Upload } from "lucide-react"
 import { GithubIcon } from "@/components/ui/Icons"
 import { authenticatedFetch } from "@/lib/auth-client"
 import type { ProjectData } from "@/types"
@@ -12,6 +12,7 @@ export default function ProjectsPage() {
   const [form, setForm] = useState({ title: "", description: "", techStack: "", githubLink: "", liveLink: "", image: "" })
   const [error, setError] = useState("")
   const [showImport, setShowImport] = useState(false); const [importUrl, setImportUrl] = useState(""); const [importing, setImporting] = useState(false)
+  const [uploading, setUploading] = useState(false)
 
   async function importFromGitHub() {
     setError("")
@@ -44,9 +45,10 @@ export default function ProjectsPage() {
   }
 
   async function load() {
-    const res = await authenticatedFetch("/api/admin/projects")
+    const res = await authenticatedFetch("/api/admin/projects?limit=100")
     if (!res.ok) { setError("Auth failed"); setLoading(false); return }
-    setProjects(await res.json()); setLoading(false)
+    const data = await res.json()
+    setProjects(data.projects ?? data); setLoading(false)
   }
   useEffect(() => { load() }, [])
 
@@ -55,6 +57,21 @@ export default function ProjectsPage() {
 
   function ensureProtocol(url: string) {
     return url && !/^https?:\/\//i.test(url) ? `https://${url}` : url
+  }
+
+  async function handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const fd = new FormData()
+      fd.append("file", file)
+      const res = await authenticatedFetch("/api/admin/upload", { method: "POST", body: fd })
+      if (!res.ok) { setError("Upload failed"); return }
+      const data = await res.json()
+      setForm(p => ({ ...p, image: data.url }))
+    } catch { setError("Upload failed") }
+    finally { setUploading(false) }
   }
 
   async function handleSave(e: React.FormEvent) {
@@ -99,7 +116,15 @@ export default function ProjectsPage() {
             <div><label className="block text-sm text-terminal-text-dim mb-1">tech stack *</label><input value={form.techStack} onChange={e => setForm(p => ({ ...p, techStack: e.target.value }))} className="w-full bg-terminal-bg border border-terminal-border rounded px-3 py-2.5 text-base text-terminal-text focus:outline-none focus:border-terminal-blue" required /></div>
             <div><label className="block text-sm text-terminal-text-dim mb-1">github</label><input value={form.githubLink} onChange={e => setForm(p => ({ ...p, githubLink: e.target.value }))} className="w-full bg-terminal-bg border border-terminal-border rounded px-3 py-2.5 text-base text-terminal-text focus:outline-none focus:border-terminal-blue" /></div>
             <div><label className="block text-sm text-terminal-text-dim mb-1">live link</label><input value={form.liveLink} onChange={e => setForm(p => ({ ...p, liveLink: e.target.value }))} className="w-full bg-terminal-bg border border-terminal-border rounded px-3 py-2.5 text-base text-terminal-text focus:outline-none focus:border-terminal-blue" /></div>
-            <div className="sm:col-span-2"><label className="block text-sm text-terminal-text-dim mb-1">image URL</label><input value={form.image} onChange={e => setForm(p => ({ ...p, image: e.target.value }))} className="w-full bg-terminal-bg border border-terminal-border rounded px-3 py-2.5 text-base text-terminal-text focus:outline-none focus:border-terminal-blue" /></div>
+            <div className="sm:col-span-2"><label className="block text-sm text-terminal-text-dim mb-1">image</label>
+              <div className="flex items-center gap-3">
+                <label className="flex items-center gap-1.5 px-4 py-2.5 bg-terminal-bg border border-terminal-border rounded text-base text-terminal-text-dim hover:text-terminal-green hover:border-terminal-green cursor-pointer transition-all">
+                  <Upload size={18} />{uploading ? "Uploading..." : "Choose file"}
+                  <input type="file" accept="image/*" onChange={handleImageUpload} className="hidden" disabled={uploading} />
+                </label>
+                {form.image && <img src={form.image} alt="" className="w-14 h-10 rounded object-cover border border-terminal-border/60" />}
+              </div>
+            </div>
             <div className="sm:col-span-2"><label className="block text-sm text-terminal-text-dim mb-1">description *</label><textarea value={form.description} onChange={e => setForm(p => ({ ...p, description: e.target.value }))} className="w-full bg-terminal-bg border border-terminal-border rounded px-3 py-2.5 text-base text-terminal-text focus:outline-none focus:border-terminal-blue h-24" required /></div>
           </div>
           <button type="submit" className="flex items-center gap-1.5 px-4 py-2 bg-terminal-blue text-terminal-bg rounded text-base font-semibold"><Check size={18} /> {editing ? "Update" : "Create"}</button>
@@ -110,15 +135,24 @@ export default function ProjectsPage() {
           <div key={p.id} className="border border-terminal-border rounded bg-terminal-surface p-4 group">
             <div className="flex items-start justify-between">
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-2"><h3 className="text-base font-semibold text-terminal-text truncate">{p.title}</h3>
-                  <div className="flex items-center gap-1">{p.githubLink && <a href={p.githubLink} target="_blank" rel="noopener noreferrer" className="text-terminal-text-dim hover:text-terminal-blue"><GithubIcon size={18} /></a>}{p.liveLink && <a href={p.liveLink} target="_blank" rel="noopener noreferrer" className="text-terminal-text-dim hover:text-terminal-green"><ExternalLink size={18} /></a>}</div>
+                <div className="flex items-center gap-3">
+                  {p.image && (
+                    <div className="w-16 h-12 shrink-0 rounded overflow-hidden border border-terminal-border/60 bg-white/[0.04]">
+                      <img src={p.image} alt="" className="w-full h-full object-cover" />
+                    </div>
+                  )}
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2"><h3 className="text-base font-semibold text-terminal-text truncate">{p.title}</h3>
+                      <div className="flex items-center gap-1">{p.githubLink && <a href={p.githubLink} target="_blank" rel="noopener noreferrer" className="text-terminal-text-dim hover:text-terminal-blue"><GithubIcon size={18} /></a>}{p.liveLink && <a href={p.liveLink} target="_blank" rel="noopener noreferrer" className="text-terminal-text-dim hover:text-terminal-green"><ExternalLink size={18} /></a>}</div>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 mt-1.5">{p.techStack.split(",").map((t, i) => <span key={i} className="text-sm px-2 py-0.5 bg-terminal-border rounded text-terminal-text-dim">{t.trim()}</span>)}</div>
+                  </div>
                 </div>
-                <div className="flex flex-wrap gap-1.5 mt-2">{p.techStack.split(",").map((t, i) => <span key={i} className="text-sm px-2 py-0.5 bg-terminal-border rounded text-terminal-text-dim">{t.trim()}</span>)}</div>
                 <p className="text-sm text-terminal-text mt-2 line-clamp-2">{p.description}</p>
               </div>
               <div className="flex items-center gap-1 ml-3 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
-                <button onClick={() => openEdit(p)} className="p-2 text-terminal-text-dim hover:text-terminal-blue"><Pencil size={16} /></button>
-                <button onClick={() => handleDelete(p.id)} className="p-2 text-terminal-text-dim hover:text-terminal-red"><Trash2 size={16} /></button>
+                <button onClick={() => openEdit(p)} className="p-2 text-terminal-text-dim hover:text-terminal-blue"><Pencil size={20} /></button>
+                <button onClick={() => handleDelete(p.id)} className="p-2 text-terminal-text-dim hover:text-terminal-red"><Trash2 size={20} /></button>
               </div>
             </div>
           </div>
