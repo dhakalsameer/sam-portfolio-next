@@ -73,7 +73,7 @@ export default function ProjectsSection({ projects }: { projects: ProjectData[] 
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.35, delay: i * 0.06 }}
-                className="group relative"
+                className="group relative h-full"
               >
                 <div className="absolute left-0 top-0 bottom-0 w-1 bg-terminal-border group-hover:bg-terminal-green transition-colors rounded-l" />
 
@@ -87,9 +87,9 @@ export default function ProjectsSection({ projects }: { projects: ProjectData[] 
                       setSelected(project)
                     }
                   }}
-                  className="border border-terminal-border group-hover:border-terminal-green/40 rounded bg-terminal-surface p-3.5 sm:p-6 cursor-pointer transition-all hover:shadow-lg hover:shadow-terminal-green/5"
+                  className="border border-terminal-border group-hover:border-terminal-green/40 rounded bg-terminal-surface p-3.5 sm:p-6 cursor-pointer transition-all hover:shadow-lg hover:shadow-terminal-green/5 h-full"
                 >
-                  <div className="flex items-start gap-3 sm:gap-6">
+                  <div className="flex items-start gap-3 sm:gap-6 sm:items-start">
                     {project.image && (
                       <div className="w-20 h-16 sm:w-56 sm:h-36 shrink-0 rounded-lg overflow-hidden border border-terminal-border/60 bg-white/[0.04] shadow-sm shadow-black/10 group-hover:shadow-terminal-green/10 group-hover:border-terminal-green/40 transition-all duration-500">
                         <img
@@ -100,7 +100,7 @@ export default function ProjectsSection({ projects }: { projects: ProjectData[] 
                       </div>
                     )}
 
-                    <div className="flex-1 min-w-0">
+                    <div className="flex-1 min-w-0 flex flex-col">
                       <div className="flex items-center justify-between gap-3 mb-1.5">
                         <div className="flex items-center gap-2.5 min-w-0">
                           <div className="flex items-center gap-1.5 text-terminal-green/50 font-mono text-xs sm:text-sm shrink-0">
@@ -133,7 +133,7 @@ export default function ProjectsSection({ projects }: { projects: ProjectData[] 
                         {project.description}
                       </p>
 
-                      <div className="flex flex-wrap items-center gap-1.5 mt-2 sm:mt-3">
+                      <div className="flex flex-wrap items-center gap-1.5 sm:mt-3 mt-auto">
                         {project.techStack.split(",").map((tech, j) => (
                           <span key={j} className={`text-[10px] sm:text-xs lg:text-sm px-1.5 sm:px-2.5 py-0.5 rounded-full border ${getTechColor(tech)} font-medium`}>
                             {tech.trim()}
