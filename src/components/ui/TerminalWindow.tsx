@@ -15,7 +15,7 @@ export default function TerminalWindow({
         <span className="w-2.5 h-2.5 rounded-full bg-green-500" />
         <span className="ml-auto text-xs text-terminal-text-dim">{title}</span>
       </div>
-      <div className="p-4">
+      <div className="p-3 sm:p-4">
         {children}
       </div>
     </div>

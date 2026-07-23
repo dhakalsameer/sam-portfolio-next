@@ -110,7 +110,7 @@ export default function AboutSection({ profile }: { profile: ProfileData | null 
                   <div className="mt-4 pt-3 border-t border-terminal-border/50">
                     <p className="font-mono leading-relaxed flex items-center gap-2">
                       <span className="text-terminal-green shrink-0 text-lg">$</span>
-                      <span className="relative w-[16rem] sm:w-[20rem]">
+                      <span className="relative w-full sm:w-[16rem] lg:w-[20rem]">
                         <motion.span
                           key={sloganIndex}
                           initial={{ x: 60, opacity: 0 }}

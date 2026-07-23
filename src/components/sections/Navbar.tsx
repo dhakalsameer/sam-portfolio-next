@@ -122,12 +122,12 @@ export default function Navbar() {
 
       {mobileOpen && (
         <div className="md:hidden border-t border-terminal-border/50 bg-terminal-surface/95 backdrop-blur-md">
-          <div className="px-4 sm:px-6 py-3 space-y-1">
+          <div className="px-3 sm:px-6 py-2 space-y-0.5">
             {sections.map(({ id, label }) => (
               <button
                 key={id}
                 onClick={() => scrollTo(id)}
-                className={`block w-full text-left px-3 py-3 rounded text-base font-mono transition-all ${
+                className={`block w-full text-left px-3 py-2.5 rounded text-sm font-mono transition-all ${
                   active === id
                     ? "text-terminal-green bg-terminal-green/5 border-l-2 border-terminal-green"
                     : "text-terminal-text-dim/60 hover:text-terminal-text hover:bg-terminal-border/30 border-l-2 border-transparent"
@@ -136,10 +136,10 @@ export default function Navbar() {
                 <span className="text-terminal-text-dim/40">$</span> cd {label}
               </button>
             ))}
-            <div className="border-t border-terminal-border/30 my-2" />
+            <div className="border-t border-terminal-border/30 my-1.5" />
             <a
               href="/admin"
-              className="flex items-center gap-2 px-3 py-3 rounded text-base font-mono text-terminal-text-dim/40 hover:text-terminal-green hover:bg-terminal-border/30 transition-all"
+              className="flex items-center gap-2 px-3 py-2.5 rounded text-sm font-mono text-terminal-text-dim/40 hover:text-terminal-green hover:bg-terminal-border/30 transition-all"
             >
               <Shield size={14} />
               <span>admin</span>

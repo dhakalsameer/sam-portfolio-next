@@ -72,21 +72,12 @@ export default function HeroSection({ profile }: { profile: ProfileData | null }
 
         <TerminalWindow title="sameer@ubuntu:~" className="mb-4">
           <div className="text-center">
-            <motion.p
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-terminal-text text-base font-semibold mb-4"
-            >
-              <span className="text-terminal-green">$</span> whoami
-            </motion.p>
-
             {photos.length > 0 && (
               <motion.div
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.15 }}
-                className="relative w-44 h-44 sm:w-56 sm:h-56 mx-auto mb-6 rounded-xl overflow-hidden border-2 border-terminal-green/40 shadow-lg shadow-terminal-green/10"
+                className="relative w-36 h-36 sm:w-56 sm:h-56 mx-auto mb-2 sm:mb-3 rounded-xl overflow-hidden border-2 border-terminal-green/40 shadow-lg shadow-terminal-green/10"
               >
                 <AnimatePresence mode="wait">
                   <motion.img
@@ -103,13 +94,22 @@ export default function HeroSection({ profile }: { profile: ProfileData | null }
               </motion.div>
             )}
 
+            <motion.p
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-terminal-text text-base font-semibold mb-4"
+            >
+              <span className="text-terminal-green">$</span> whoami
+            </motion.p>
+
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-3xl sm:text-5xl lg:text-6xl font-bold mb-4"
+              className="text-2xl sm:text-4xl lg:text-5xl font-bold mb-4"
             >
-              <span className="text-terminal-text-bright">{profile?.fullName || "Sameer Dhakal"}</span>
+              <span className="bg-gradient-to-r from-terminal-text-bright via-terminal-green/80 to-terminal-blue/60 bg-clip-text text-transparent">{profile?.fullName || "Sameer Dhakal"}</span>
             </motion.h1>
 
             <motion.p
@@ -151,20 +151,20 @@ export default function HeroSection({ profile }: { profile: ProfileData | null }
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: 0.7 }}
-              className="flex items-center justify-center gap-4"
+              className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4"
             >
               {profile?.github && (
-                <a href={profile.github} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 border border-terminal-border rounded text-base text-terminal-text-dim hover:text-terminal-green hover:border-terminal-green transition-all">
+                <a href={profile.github} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 border border-terminal-border rounded text-base text-terminal-text-dim hover:text-terminal-green hover:border-terminal-green transition-all">
                   <GithubIcon size={18} /> GitHub
                 </a>
               )}
               {profile?.linkedin && (
-                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 border border-terminal-border rounded text-base text-terminal-text-dim hover:text-terminal-green hover:border-terminal-green transition-all">
+                <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 border border-terminal-border rounded text-base text-terminal-text-dim hover:text-terminal-green hover:border-terminal-green transition-all">
                   <LinkedinIcon size={18} /> LinkedIn
                 </a>
               )}
               {profile?.resume && (
-                <a href={profile.resume} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 px-4 py-2 bg-terminal-green text-terminal-bg rounded text-base font-semibold hover:bg-terminal-green-dim transition-colors">
+                <a href={profile.resume} target="_blank" rel="noopener noreferrer" className="flex items-center justify-center gap-2 w-full sm:w-auto px-4 py-2 bg-terminal-green text-terminal-bg rounded text-base font-semibold hover:bg-terminal-green-dim transition-colors">
                   <ExternalLink size={16} /> Resume
                 </a>
               )}
