@@ -25,7 +25,7 @@ function setTheme(theme: string) {
 export default function Navbar() {
   const [active, setActive] = useState("hero")
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [theme, setThemeState] = useState("dark")
+  const [theme, setThemeState] = useState("light")
 
   useEffect(() => {
     setThemeState(getTheme())
@@ -100,19 +100,19 @@ export default function Navbar() {
             </a>
             <button
               onClick={toggleTheme}
-              className="p-2 rounded text-terminal-text-dim/60 hover:text-terminal-amber hover:bg-terminal-border/40 transition-all"
+              className={`p-2 rounded-lg border transition-all duration-300 hidden md:flex items-center justify-center ${theme === "dark" ? "border-terminal-amber/20 text-terminal-amber hover:bg-terminal-amber/5 hover:border-terminal-amber/40" : "border-terminal-blue/20 text-terminal-blue hover:bg-terminal-blue/5 hover:border-terminal-blue/40"}`}
               title={theme === "dark" ? "Switch to light" : "Switch to dark"}
             >
-              {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+              <span className={`block transition-transform duration-300 ${theme === "dark" ? "rotate-0" : "rotate-180"}`}>{theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}</span>
             </button>
           </div>
 
         <div className="flex md:hidden items-center gap-2">
           <button
             onClick={toggleTheme}
-            className="p-2 text-terminal-text-dim/60 hover:text-terminal-amber transition-colors"
+            className={`p-2 rounded-lg border transition-all duration-300 md:hidden ${theme === "dark" ? "border-terminal-amber/20 text-terminal-amber hover:bg-terminal-amber/5" : "border-terminal-blue/20 text-terminal-blue hover:bg-terminal-blue/5"}`}
           >
-            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            <span className={`block transition-transform duration-300 ${theme === "dark" ? "rotate-0" : "rotate-180"}`}>{theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}</span>
           </button>
           <button onClick={() => setMobileOpen(!mobileOpen)} className="p-1.5 text-terminal-text-dim/60 hover:text-terminal-green transition-colors">
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}

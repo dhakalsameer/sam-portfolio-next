@@ -10,7 +10,7 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     if (stored === "light" || stored === "dark") {
       document.documentElement.setAttribute("data-theme", stored)
     } else {
-      document.documentElement.setAttribute("data-theme", "dark")
+      document.documentElement.setAttribute("data-theme", "light")
     }
     setMounted(true)
   }, [])

@@ -7,8 +7,8 @@ import { Terminal, LayoutDashboard, Code2, Award, FolderGit2, User, LogOut, Menu
 import { verifySession, clearToken } from "@/lib/auth-client"
 
 function getTheme() {
-  if (typeof window === "undefined") return "dark"
-  return document.documentElement.getAttribute("data-theme") || "dark"
+  if (typeof window === "undefined") return "light"
+  return document.documentElement.getAttribute("data-theme") || "light"
 }
 
 function setTheme(theme: string) {
@@ -19,7 +19,7 @@ function setTheme(theme: string) {
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [checked, setChecked] = useState(false)
-  const [theme, setThemeState] = useState("dark")
+  const [theme, setThemeState] = useState("light")
   const router = useRouter()
 
   useEffect(() => {
