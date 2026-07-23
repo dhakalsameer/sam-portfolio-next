@@ -49,11 +49,11 @@ export default function CertificatesSection({ certificates }: { certificates: Ce
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.3, delay: i * 0.06 }}
-                  className="group relative py-5 px-1 hover:bg-terminal-orange/[0.02] transition-colors"
+                  className="group relative py-3 sm:py-5 px-1 hover:bg-terminal-orange/[0.02] transition-colors"
                 >
                   <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-transparent group-hover:bg-terminal-orange/40 transition-colors rounded" />
 
-                  <div className="flex items-start gap-3 sm:gap-5">
+                  <div className="flex items-start gap-2.5 sm:gap-5">
                     {cert.image && (
                       <div className="w-16 h-16 sm:w-28 sm:h-28 shrink-0 rounded-lg sm:rounded-xl overflow-hidden border border-terminal-border/60 bg-white/[0.04] shadow-sm shadow-black/10 group-hover:shadow-terminal-orange/10 group-hover:border-terminal-orange/40 transition-all duration-500 cursor-pointer" onClick={() => setLightbox(cert.image)}>
                         <img src={cl(cert.image, 300)} alt={cert.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />

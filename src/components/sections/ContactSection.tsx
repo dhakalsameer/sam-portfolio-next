@@ -48,9 +48,9 @@ export default function ContactSection({ profile }: { profile: ProfileData | nul
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <TerminalWindow title="sameer@ubuntu:~/contact">
               <form onSubmit={handleSubmit}>
-                <div className="space-y-5">
+                <div className="space-y-3 sm:space-y-5">
                   <div>
-                    <label className="flex items-center gap-2 text-base font-mono mb-2">
+                    <label className="flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base font-mono mb-1.5 sm:mb-2">
                       <span className="text-terminal-green">$</span>
                       <span className="text-terminal-text-dim/90">read -p </span>
                       <span className="text-terminal-green/80">&quot;name: &quot;</span>
@@ -59,13 +59,13 @@ export default function ContactSection({ profile }: { profile: ProfileData | nul
                       value={form.name}
                       onChange={e => setForm(p => ({ ...p, name: e.target.value }))}
                       placeholder="your name"
-                      className="w-full bg-terminal-bg border border-terminal-border rounded px-3 py-2.5 text-base text-terminal-text font-mono placeholder:text-terminal-text-dim/30 focus:outline-none focus:border-terminal-green focus:shadow-[0_0_8px_rgba(0,255,65,0.08)] transition-all"
+                      className="w-full bg-terminal-bg border border-terminal-border rounded px-3 py-2 sm:py-2.5 text-sm sm:text-base text-terminal-text font-mono placeholder:text-terminal-text-dim/30 focus:outline-none focus:border-terminal-green focus:shadow-[0_0_8px_rgba(0,255,65,0.08)] transition-all"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="flex items-center gap-2 text-base font-mono mb-2">
+                    <label className="flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base font-mono mb-1.5 sm:mb-2">
                       <span className="text-terminal-green">$</span>
                       <span className="text-terminal-text-dim/90">read -p </span>
                       <span className="text-terminal-green/80">&quot;email: &quot;</span>
@@ -75,13 +75,13 @@ export default function ContactSection({ profile }: { profile: ProfileData | nul
                       value={form.email}
                       onChange={e => setForm(p => ({ ...p, email: e.target.value }))}
                       placeholder="your@email.com"
-                      className="w-full bg-terminal-bg border border-terminal-border rounded px-3 py-2.5 text-base text-terminal-text font-mono placeholder:text-terminal-text-dim/30 focus:outline-none focus:border-terminal-green focus:shadow-[0_0_8px_rgba(0,255,65,0.08)] transition-all"
+                      className="w-full bg-terminal-bg border border-terminal-border rounded px-3 py-2 sm:py-2.5 text-sm sm:text-base text-terminal-text font-mono placeholder:text-terminal-text-dim/30 focus:outline-none focus:border-terminal-green focus:shadow-[0_0_8px_rgba(0,255,65,0.08)] transition-all"
                       required
                     />
                   </div>
 
                   <div>
-                    <label className="flex items-center gap-2 text-base font-mono mb-2">
+                    <label className="flex items-center gap-1.5 sm:gap-2 text-sm sm:text-base font-mono mb-1.5 sm:mb-2">
                       <span className="text-terminal-green">$</span>
                       <span className="text-terminal-text-dim/90">cat &gt;&gt; message.txt</span>
                     </label>
@@ -89,7 +89,7 @@ export default function ContactSection({ profile }: { profile: ProfileData | nul
                       value={form.message}
                       onChange={e => setForm(p => ({ ...p, message: e.target.value }))}
                       placeholder="type your message..."
-                      className="w-full bg-terminal-bg border border-terminal-border rounded px-3 py-2.5 text-base text-terminal-text font-mono placeholder:text-terminal-text-dim/30 focus:outline-none focus:border-terminal-green focus:shadow-[0_0_8px_rgba(0,255,65,0.08)] transition-all h-28 resize-none"
+                      className="w-full bg-terminal-bg border border-terminal-border rounded px-3 py-2 sm:py-2.5 text-sm sm:text-base text-terminal-text font-mono placeholder:text-terminal-text-dim/30 focus:outline-none focus:border-terminal-green focus:shadow-[0_0_8px_rgba(0,255,65,0.08)] transition-all h-24 sm:h-28 resize-none"
                       required
                     />
                   </div>
@@ -97,24 +97,26 @@ export default function ContactSection({ profile }: { profile: ProfileData | nul
                   <button
                     type="submit"
                     disabled={status === "sending"}
-                    className="w-full py-3 bg-terminal-green/10 border border-terminal-green/30 rounded text-base font-mono font-semibold text-terminal-green hover:bg-terminal-green/20 hover:border-terminal-green/50 disabled:opacity-40 transition-all flex items-center justify-center gap-2"
+                    className="w-full py-2.5 sm:py-3 bg-terminal-green/10 border border-terminal-green/30 rounded text-sm sm:text-base font-mono font-semibold text-terminal-green hover:bg-terminal-green/20 hover:border-terminal-green/50 disabled:opacity-40 transition-all flex items-center justify-center gap-2"
                   >
                     {status === "sending" ? (
                       <><span className="animate-pulse">⟳</span> sending...</>
                     ) : (
-                      <><Send size={14} /> ./send-mail.sh --send</>
+                      <><Send size={13} className="sm:hidden" /><Send size={14} className="hidden sm:block" /> ./send-mail.sh --send</>
                     )}
                   </button>
 
                   {status === "sent" && (
-                    <div className="flex items-center gap-2 text-base text-terminal-green font-mono bg-terminal-green/5 border border-terminal-green/20 rounded px-3 py-2">
-                      <CheckCircle size={16} />
+                    <div className="flex items-center gap-2 text-sm sm:text-base text-terminal-green font-mono bg-terminal-green/5 border border-terminal-green/20 rounded px-3 py-2">
+                      <CheckCircle size={14} className="sm:hidden" />
+                      <CheckCircle size={16} className="hidden sm:block" />
                       <span>✓ Message delivered successfully</span>
                     </div>
                   )}
                   {status === "error" && (
-                    <div className="flex items-center gap-2 text-base text-terminal-red font-mono bg-terminal-red/5 border border-terminal-red/20 rounded px-3 py-2">
-                      <AlertCircle size={16} />
+                    <div className="flex items-center gap-2 text-sm sm:text-base text-terminal-red font-mono bg-terminal-red/5 border border-terminal-red/20 rounded px-3 py-2">
+                      <AlertCircle size={14} className="sm:hidden" />
+                      <AlertCircle size={16} className="hidden sm:block" />
                       <span>✗ Delivery failed — try again</span>
                     </div>
                   )}

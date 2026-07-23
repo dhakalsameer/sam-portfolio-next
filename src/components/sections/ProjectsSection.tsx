@@ -87,9 +87,9 @@ export default function ProjectsSection({ projects }: { projects: ProjectData[] 
                       setSelected(project)
                     }
                   }}
-                  className="border border-terminal-border group-hover:border-terminal-green/40 rounded bg-terminal-surface p-5 sm:p-6 cursor-pointer transition-all hover:shadow-lg hover:shadow-terminal-green/5"
+                  className="border border-terminal-border group-hover:border-terminal-green/40 rounded bg-terminal-surface p-3.5 sm:p-6 cursor-pointer transition-all hover:shadow-lg hover:shadow-terminal-green/5"
                 >
-                  <div className="flex items-start gap-4 sm:gap-6">
+                  <div className="flex items-start gap-3 sm:gap-6">
                     {project.image && (
                       <div className="hidden sm:block w-56 h-36 shrink-0 rounded-lg overflow-hidden border border-terminal-border/60 bg-white/[0.04] shadow-sm shadow-black/10 group-hover:shadow-terminal-green/10 group-hover:border-terminal-green/40 transition-all duration-500">
                         <img
@@ -103,36 +103,39 @@ export default function ProjectsSection({ projects }: { projects: ProjectData[] 
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between gap-3 mb-1.5">
                         <div className="flex items-center gap-2.5 min-w-0">
-                          <div className="flex items-center gap-2 text-terminal-green/50 font-mono text-sm shrink-0">
+                          <div className="flex items-center gap-1.5 text-terminal-green/50 font-mono text-xs sm:text-sm shrink-0">
                             <span className="text-terminal-text-dim/30">{String(i + 1).padStart(2, "0")}</span>
                           </div>
-                          <Folder size={18} className="text-terminal-blue/60 shrink-0" />
-                          <h3 className="text-lg sm:text-2xl font-semibold text-terminal-text group-hover:text-terminal-green transition-colors truncate font-mono">
+                          <Folder size={14} className="sm:hidden text-terminal-blue/60 shrink-0" />
+                          <Folder size={18} className="hidden sm:block text-terminal-blue/60 shrink-0" />
+                          <h3 className="text-sm sm:text-lg lg:text-2xl font-semibold text-terminal-text group-hover:text-terminal-green transition-colors truncate font-mono">
                             {project.title}
                           </h3>
                         </div>
 
                         <div className="flex items-center gap-1 shrink-0">
                           {project.githubLink && (
-                            <a href={project.githubLink} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="p-2.5 text-terminal-text-dim/40 hover:text-terminal-blue hover:bg-terminal-blue/5 rounded-lg transition-all">
-                              <GithubIcon size={24} />
+                            <a href={project.githubLink} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="p-1.5 sm:p-2.5 text-terminal-text-dim/40 hover:text-terminal-blue hover:bg-terminal-blue/5 rounded-lg transition-all">
+                              <GithubIcon size={18} className="sm:hidden" />
+                              <GithubIcon size={24} className="hidden sm:block" />
                             </a>
                           )}
                           {project.liveLink && (
-                            <a href={project.liveLink} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="p-2.5 text-terminal-text-dim/40 hover:text-terminal-green hover:bg-terminal-green/5 rounded-lg transition-all">
-                              <ExternalLink size={24} />
+                            <a href={project.liveLink} target="_blank" rel="noopener noreferrer" onClick={e => e.stopPropagation()} className="p-1.5 sm:p-2.5 text-terminal-text-dim/40 hover:text-terminal-green hover:bg-terminal-green/5 rounded-lg transition-all">
+                              <ExternalLink size={18} className="sm:hidden" />
+                              <ExternalLink size={24} className="hidden sm:block" />
                             </a>
                           )}
                         </div>
                       </div>
 
-                      <p className="text-sm sm:text-base text-terminal-text leading-relaxed line-clamp-2 sm:line-clamp-2">
+                      <p className="text-xs sm:text-sm lg:text-base text-terminal-text leading-relaxed line-clamp-2 sm:line-clamp-2">
                         {project.description}
                       </p>
 
-                      <div className="flex flex-wrap items-center gap-2 mt-3">
+                      <div className="flex flex-wrap items-center gap-1.5 mt-2 sm:mt-3">
                         {project.techStack.split(",").map((tech, j) => (
-                          <span key={j} className={`text-xs sm:text-sm px-2.5 py-0.5 rounded-full border ${getTechColor(tech)} font-medium`}>
+                          <span key={j} className={`text-[10px] sm:text-xs lg:text-sm px-1.5 sm:px-2.5 py-0.5 rounded-full border ${getTechColor(tech)} font-medium`}>
                             {tech.trim()}
                           </span>
                         ))}
@@ -141,7 +144,7 @@ export default function ProjectsSection({ projects }: { projects: ProjectData[] 
                   </div>
 
                   {project.image && (
-                    <div className="sm:hidden mt-3 rounded-lg overflow-hidden border border-terminal-border/60 bg-white/[0.04] shadow-sm shadow-black/10">
+                    <div className="sm:hidden mt-2 rounded-lg overflow-hidden border border-terminal-border/60 bg-white/[0.04] shadow-sm shadow-black/10">
                       <img
                         src={cl(project.image, 640)}
                         alt={project.title}
